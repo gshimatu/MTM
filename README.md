@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Ce projet est une application web simple et moderne permettant de convertir des fichiers vidéo MP4 en fichiers audio MP3, directement depuis votre navigateur. L’objectif est de rendre la conversion accessible à tous, sans installation complexe ni ligne de commande.
+Ce projet est une application web avec Flask permettant de convertir des fichiers vidéo MP4 en fichiers audio MP3, directement depuis votre navigateur. L’objectif est de rendre la conversion accessible à tous, sans installation complexe et publicité
 
 ---
 
