@@ -9,13 +9,7 @@ app.config['UPLOAD_FOLDER'] = os.path.join(tempfile.gettempdir(), 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500 Mo
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Définissez le chemin complet vers ffmpeg.exe
-# REMPLACEZ CE CHEMIN par le chemin réel où vous avez ffmpeg.exe sur votre système
-# Exemple: FFMPEG_EXE_PATH = "C:\\ffmpeg\\ffmpeg.exe"
-# Assurez-vous que les doubles barres obliques inverses sont utilisées pour les chemins Windows
-# Si vous êtes ABSOLUMENT SÛR que 'ffmpeg' est dans le PATH de l'environnement où Flask est exécuté,
-# vous pouvez laisser FFMPEG_EXE_PATH = "ffmpeg"
-FFMPEG_EXE_PATH = "C:\\ffmpeg\\bin\\ffmpeg.exe" # <-- Correction ici : doubles barres obliques inverses
+FFMPEG_EXE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin', 'ffmpeg.exe')
 
 def get_unique_filename(folder, base_name, ext):
     i = 1
@@ -40,14 +34,16 @@ def convert_file():
 
     if file:
         video_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        # Supprime le fichier existant s'il y en a un pour éviter les conflits
         if os.path.exists(video_path):
             try:
                 os.remove(video_path)
             except PermissionError:
+                # Si le fichier est en cours d'utilisation, on passe, Flask gérera l'écrasement
                 pass
 
         file.save(video_path)
-        file.stream.close()
+        file.stream.close() # Important pour libérer le fichier
 
         base_name = os.path.splitext(file.filename)[0]
         output_mp3_name = get_unique_filename(app.config['UPLOAD_FOLDER'], base_name, ".mp3")
@@ -55,7 +51,7 @@ def convert_file():
 
         try:
             command = [
-                FFMPEG_EXE_PATH,
+                FFMPEG_EXE_PATH, # Utilise le chemin relatif de ffmpeg.exe
                 "-i", video_path,
                 "-vn",
                 "-acodec", "libmp3lame",
@@ -64,6 +60,7 @@ def convert_file():
             ]
             subprocess.run(command, check=True, capture_output=True, text=True)
 
+            # Tente de supprimer le fichier vidéo temporaire après la conversion
             for _ in range(20):
                 try:
                     os.remove(video_path)
@@ -78,10 +75,11 @@ def convert_file():
                 os.remove(video_path)
             if os.path.exists(output_mp3_path):
                 os.remove(output_mp3_path)
-            return "Erreur lors de la conversion vidéo.", 500
+            return f"Erreur lors de la conversion vidéo. Détails: {e.stderr}", 500
 
         except FileNotFoundError:
-            return "Erreur serveur: FFmpeg n'a pas été trouvé.", 500
+            # Cette erreur est spécifique si FFMPEG_EXE_PATH est incorrect ou ffmpeg.exe n'est pas trouvé
+            return "Erreur serveur: FFmpeg n'a pas été trouvé. Veuillez vérifier l'installation de FFmpeg.", 500
 
         except Exception:
             if os.path.exists(video_path):
@@ -95,4 +93,4 @@ def download_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, use_reloader=False, host='127.0.0.1', port=5000)

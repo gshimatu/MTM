@@ -19,7 +19,7 @@
     <form action="{{ url_for('convert_file') }}" method="post" enctype="multipart/form-data" class="space-y-6">
         <div class="relative">
             <label for="video_file" class="upload-area">
-                <div class="py-10">
+                <div class="py-10 bg-white border-2 border-dashed border-gray-300 rounded-lg">
                     <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4 animate-bounce-slow"></i>
                     <p class="mb-2 text-sm text-gray-600 font-medium">Glissez-déposez votre fichier</p>
                     <p class="text-xs text-gray-500">ou <span class="font-semibold text-primary-color">cliquez pour parcourir</span></p>
@@ -27,7 +27,7 @@
                 </div>
                 <input id="video_file" type="file" name="video_file" accept="video/mp4" class="hidden" onchange="displayFileName(this)">
             </label>
-            <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-secondary-color px-4 py-1 rounded-full text-white text-xs font-medium shadow-md">
+            <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-secondary-color px-4 py-1 rounded-full text-white text-xs font-medium shadow-md">
                 <i class="fas fa-music mr-1"></i> Zone de conversion
             </div>
         </div>
