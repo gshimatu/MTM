@@ -1,0 +1,98 @@
+/*
+ * Lien vers mon github   : https://github.com/gshimatu
+ * Auteur                 : Gauthier Shimatu (Le shimatologue)
+ * Nom du fichier         : style.css
+ * Date de création       : 2025-07-16 15:50:17
+ * Description            : Fichier CSS pour le style de l'application mp4ToMp3
+ * Version                : 1.0
+ */
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes spinSlow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounceSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s; 
+    animation-fill-mode: backwards; 
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.4s;
+    animation-fill-mode: backwards;
+}
+
+.animate-pop-in {
+    animation: popIn 0.6s ease-out forwards;
+    animation-delay: 0.6s;
+    animation-fill-mode: backwards;
+}
+
+.animate-spin-slow {
+    animation: spinSlow 3s linear infinite;
+}
+
+.animate-bounce-slow {
+    animation: bounceSlow 2s ease-in-out infinite;
+}
