@@ -3,35 +3,59 @@
 {% block title %}Convertisseur MP4 vers MP3 - Accueil{% endblock %}
 
 {% block content %}
-<div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center">
-    <h1 class="text-4xl font-bold mb-6 text-indigo-700 animate-fade-in-down">
-        Convertisseur MP4 vers MP3
-    </h1>
-    <p class="text-gray-600 mb-8 animate-fade-in-up">
-        Transformez vos vidéos MP4 en fichiers audio MP3 de haute qualité, facilement et rapidement.
-    </p>
+<div class="content glass-box p-8 rounded-2xl shadow-2xl w-full max-w-lg text-center border border-secondary-color/20 animate-pop-in">
+    <div class="mb-8">
+        <div class="inline-block bg-gradient-to-br from-primary-color to-[#02262d] p-4 rounded-full mb-4 animate-fade-in-down">
+            <i class="fas fa-file-audio text-4xl text-secondary-color"></i>
+        </div>
+        <h1 class="hero-title text-primary-color">
+            Convertisseur MP4 <span class="text-secondary-color">→</span> MP3
+        </h1>
+        <p class="hero-subtext">
+            Transformez vos vidéos en fichiers audio de haute qualité et gratuitement !
+        </p>
+    </div>
 
     <form action="{{ url_for('convert_file') }}" method="post" enctype="multipart/form-data" class="space-y-6">
-        <div class="flex items-center justify-center w-full">
-            <label for="video_file" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105 animate-fade-in">
-                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4 animate-bounce-slow"></i>
-                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Cliquez pour uploader</span> ou glissez-déposez</p>
-                    <p class="text-xs text-gray-500">MP4 (MAX. 500MB)</p>
+        <div class="relative">
+            <label for="video_file" class="upload-area">
+                <div class="py-10">
+                    <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4 animate-bounce-slow"></i>
+                    <p class="mb-2 text-sm text-gray-600 font-medium">Glissez-déposez votre fichier</p>
+                    <p class="text-xs text-gray-500">ou <span class="font-semibold text-primary-color">cliquez pour parcourir</span></p>
+                    <p class="text-xs text-gray-500 mt-2">Format MP4 - Max. 500MB</p>
                 </div>
                 <input id="video_file" type="file" name="video_file" accept="video/mp4" class="hidden" onchange="displayFileName(this)">
             </label>
+            <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-secondary-color px-4 py-1 rounded-full text-white text-xs font-medium shadow-md">
+                <i class="fas fa-music mr-1"></i> Zone de conversion
+            </div>
         </div>
-        <div id="file-name" class="text-sm text-gray-700 mt-2 font-medium"></div>
 
-        <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 animate-pop-in">
-            <i class="fas fa-sync-alt animate-spin-slow text-lg"></i>
-            <span>Convertir en MP3</span>
+        <div id="file-name" class="text-sm font-medium bg-primary-color/10 py-2 px-4 rounded-lg text-primary-color mt-4 transition-all duration-300"></div>
+
+        <button id="convert-btn" type="submit" class="w-full py-4 px-6 text-lg font-bold rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2">
+            <span id="btn-text">Convertir en MP3</span>
+            <span id="loading-spinner" class="hidden ml-2 animate-spin">
+                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+            </span>
         </button>
     </form>
 
-    <div class="mt-8 text-gray-500 text-sm animate-fade-in-up">
-        <p>Propulsé par <a href="https://flask.palletsprojects.com/" target="_blank" class="text-indigo-500 hover:underline">Flask</a>, <a href="https://tailwindcss.com/" target="_blank" class="text-indigo-500 hover:underline">Tailwind CSS</a> & <a href="https://fontawesome.com/" target="_blank" class="text-indigo-500 hover:underline">Font Awesome</a>.</p>
+    <div class="mt-8 pt-6 border-t border-gray-200">
+        <div class="flex justify-center space-x-4 text-gray-500 text-sm">
+            <div class="flex items-center">
+                <i class="fas fa-lock text-secondary-color mr-1"></i>
+                <span>Conversion sécurisée</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-bolt text-secondary-color mr-1"></i>
+                <span>Rapide</span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -39,11 +63,54 @@
     function displayFileName(input) {
         const fileNameDisplay = document.getElementById('file-name');
         if (input.files && input.files[0]) {
-            fileNameDisplay.textContent = `Fichier sélectionné: ${input.files[0].name}`;
+            fileNameDisplay.textContent = `Prêt à convertir: ${input.files[0].name}`;
+            fileNameDisplay.classList.add('bg-secondary-color/10', 'text-secondary-color');
         } else {
             fileNameDisplay.textContent = '';
+            fileNameDisplay.classList.remove('bg-secondary-color/10', 'text-secondary-color');
         }
     }
+
+    const uploadArea = document.querySelector('.upload-area');
+    const fileInput = document.getElementById('video_file');
+
+    // Empêche le comportement par défaut (ouverture du fichier dans le navigateur)
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('border-secondary-color', 'bg-secondary-color/5');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('border-secondary-color', 'bg-secondary-color/5');
+    });
+
+    // Gère le dépôt de fichier
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('border-secondary-color', 'bg-secondary-color/5');
+
+        if (e.dataTransfer.files.length > 0) {
+            // Prend le premier fichier et le met dans l'input
+            const dt = new DataTransfer();
+            dt.items.add(e.dataTransfer.files[0]);
+            fileInput.files = dt.files;
+            displayFileName(fileInput);
+        }
+    });
+
+    document.querySelector('form').addEventListener('submit', function() {
+        document.getElementById('convert-btn').disabled = true;
+        document.getElementById('btn-text').textContent = "Conversion en cours...";
+        document.getElementById('loading-spinner').classList.remove('hidden');
+    });
+
+    // Détection du téléchargement du mp3
+    window.addEventListener('focus', function() {
+        // Recharge la page si le bouton est encore désactivé (donc conversion terminée)
+        if (document.getElementById('convert-btn').disabled) {
+            location.reload();
+        }
+    });
 </script>
 
 {% endblock %}

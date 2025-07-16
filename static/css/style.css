@@ -7,11 +7,104 @@
  * Version                : 1.0
  */
 
+:root {
+    --primary-color: #03333c;
+    --secondary-color: #3fd3ca;
+    --light-bg: #fff;
+    --text-color: #fff;
+}
+
+body {
+    background: linear-gradient(-45deg, #03333c, #011920, #044349, #011e23);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
+    color: var(--text-color);
+    background-attachment: fixed;
+}
+
+/* Upload */
+.upload-area {
+    @apply flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-white transition-all duration-300;
+}
+
+.upload-area:hover {
+    @apply border-secondary-color bg-secondary-color/5 shadow-md;
+}
+
+.convert-btn {
+    @apply w-full py-4 px-6 text-lg font-bold rounded-xl bg-gradient-to-r from-secondary-color to-primary-color text-white shadow-lg flex items-center justify-center space-x-2 transition-all duration-300;
+}
+
+.convert-btn:hover {
+    @apply scale-105 shadow-xl;
+}
+
+.convert-btn:active {
+    @apply transform scale-95;
+}
+
+#convert-btn {
+    background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#convert-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px rgba(236, 72, 153, 0.3);
+}
+
+.social-icon {
+    @apply text-gray-400 hover:text-secondary-color transition-all duration-300 transform hover:scale-110;
+}
+
+/* Glass effect */
+.glass-box {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.glass-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(63, 211, 202, 0.3);
+}
+
+.hero-title {
+    @apply text-4xl md:text-5xl font-bold tracking-tight text-center mb-4;
+}
+
+.hero-subtext {
+    @apply text-sm text-gray-300 text-center mb-6;
+}
+
+/* Animations */
+@keyframes backgroundShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -23,6 +116,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -33,6 +127,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -43,27 +138,28 @@
         opacity: 0;
         transform: scale(0.8);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-@keyframes spinSlow {
-    from {
-        transform: rotate(0deg);
+@keyframes bounceSlow {
+
+    0%,
+    100% {
+        transform: translateY(0);
     }
-    to {
-        transform: rotate(360deg);
+
+    50% {
+        transform: translateY(-10px);
     }
 }
 
-@keyframes bounceSlow {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -73,8 +169,8 @@
 
 .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.2s; 
-    animation-fill-mode: backwards; 
+    animation-delay: 0.2s;
+    animation-fill-mode: backwards;
 }
 
 .animate-fade-in {
@@ -89,10 +185,14 @@
     animation-fill-mode: backwards;
 }
 
-.animate-spin-slow {
-    animation: spinSlow 3s linear infinite;
-}
-
 .animate-bounce-slow {
     animation: bounceSlow 2s ease-in-out infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.shadow-secondary-color/20 {
+    box-shadow: 0 10px 25px -5px rgba(63, 211, 202, 0.2);
 }

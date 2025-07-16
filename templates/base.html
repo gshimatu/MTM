@@ -4,22 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Convertisseur MP4 vers MP3{% endblock %}</title>
-    
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS personnalisé -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
+
     {% block head_extra %}{% endblock %}
 </head>
-<body class="bg-gray-100 font-sans antialiased text-gray-800">
-    <div class="min-h-screen flex flex-col items-center justify-center p-4">
-        {% block content %}{% endblock %}
-    </div>
+<body class="bg-primary-color font-[Inter] antialiased text-text-color min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary-color to-[#02262d] text-white p-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="relative">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo MP4 to MP3" class="h-12 w-12 rounded-full border-2 border-secondary-color shadow-md">
+                    <div class="absolute -bottom-1 -right-1 bg-secondary-color rounded-full p-1">
+                        <i class="fas fa-sync text-primary-color text-xs"></i>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-bold text-secondary-color tracking-tight">MP4<span class="text-white">to</span>MP3</h1>
+            </div>
+        </div>
+    </header>
 
+    <!-- Contenu principal -->
+    <main class="flex-grow flex flex-col items-center justify-center p-4 animate-fade-in-up">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-primary-color to-[#02262d] py-8 px-4 md:px-8 lg:px-16 text-center">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div class="mb-6 md:mb-0">
+                    <h4 class="text-xl font-bold text-secondary-color">Gauthier Shimatu</h4>
+                    <p class="text-sm mt-1 text-gray-300">Développeur Fullstack | Designer UI/UX</p>
+                </div>
+                <div class="flex space-x-5">
+                    <a href="https://www.linkedin.com/in/gauthier-shimatu-67341824a/" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/GauthierShimatu" target="_blank" class="social-icon">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/GauthierShimatu" target="_blank" class="social-icon">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="mailto:gauthiershimatu@gmail.com" class="social-icon">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="https://gauthiershimatu.kinsta.page" target="_blank" class="social-icon">
+                        <i class="fas fa-globe text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 mt-6">
+                <p class="text-sm text-gray-300">&copy; 2025 Gauthier Shimatu. Tous droits réservés.</p>
+                <p class="text-xs mt-2 text-gray-300">Propulsé par 
+                    <a href="https://flask.palletsprojects.com/" target="_blank" class="text-secondary-color hover:underline">Flask</a>, 
+                    <a href="https://tailwindcss.com/" target="_blank" class="text-secondary-color hover:underline">Tailwind CSS</a> & 
+                    <a href="https://fontawesome.com/" target="_blank" class="text-secondary-color hover:underline">Font Awesome</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript personnalisé -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts_extra %}{% endblock %}
-</body> 
-
+</body>
 </html>
