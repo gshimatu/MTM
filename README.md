@@ -56,9 +56,9 @@ mp4ToMp3/
 │   └── ffmpeg.exe        # Binaire FFmpeg Windows
 ├── static/
 │   ├── css/
-│   │   └── style.css     # Feuilles de style personnalisées
+│   │   └── style.css     # Feuilles de style 
 │   ├── js/
-│   │   └── script.js     # Scripts JS pour l’UI
+│   │   └── script.js     
 │   └── images/
 │       └── logo.png      # Logo de l’application
 ├── templates/
@@ -90,15 +90,11 @@ mp4ToMp3/
 
 ### Interface principale
 
-![Interface principale](static/images/demo1.png)
+![Interface principale](static/images/demo/demo1.PNG)
 
-### Animation de conversion
+### conversion
 
-![Animation de conversion](static/images/demo2.gif)
-
-### Résultat du téléchargement
-
-![Téléchargement du MP3](static/images/demo3.png)
+![Animation de conversion](static/images/demo/demo2.PNG)
 
 ---
 
