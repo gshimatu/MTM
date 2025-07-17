@@ -84,11 +84,21 @@ frame.pack(expand=True)
 label = tk.Label(frame, text="Convertisseur MP4 vers MP3", font=("Inter", 16, "bold"), fg="#3fd3ca", bg="#03333c")
 label.pack(pady=10)
 
+# Message d'accueil au-dessus du bouton, centré et sur plusieurs lignes
+welcome_label = tk.Label(frame, text="Bienvenue dans l'application de conversion MP4 vers MP3 !", font=("Inter", 12), fg="#ffffff", bg="#03333c", wraplength=360, justify="center")
+welcome_label.pack(pady=(0, 10))
+
 launch_button = tk.Button(frame, text="Lancer l'application", command=start_flask_app,
                           font=("Inter", 12, "bold"), bg="#3fd3ca", fg="#03333c",
                           activebackground="#02262d", activeforeground="#3fd3ca",
                           padx=20, pady=10, relief="raised", bd=3)
 launch_button.pack(pady=20)
+
+# Frame pour le footer (auteur/version) en bas de la fenêtre
+footer_frame = tk.Frame(root, bg="#03333c")
+footer_frame.pack(side="bottom", fill="x")
+footer_label = tk.Label(footer_frame, text="Par Gauthier Shimatu (le Shimatologue)  |  Version 1.1", font=("Inter", 10), fg="#3fd3ca", bg="#03333c")
+footer_label.pack(pady=(0, 8))
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
