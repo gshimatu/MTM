@@ -1,5 +1,5 @@
 ('C:\\Users\\Gauthier Shimatu\\3D Objects\\Mini - '
- 'services\\mp4ToMp3\\build\\MTM\\PYZ-00.pyz',
+ 'services\\mp4ToMp3\\build\\Mtm\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\Gauthier '
    'Shimatu\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\__future__.py',
